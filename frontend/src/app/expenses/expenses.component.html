@@ -1,0 +1,9 @@
+<div class="expenses-container">
+    <h2>Lista delle Spese</h2>
+    <ul>
+        <li *ngFor="let expense of expenses" class="expense-item">
+            <strong>{{ expense.description }}</strong> - {{ expense.amount | currency:'EUR' }}
+            <span class="expense-date">({{ expense.date | date:'dd/MM/yyyy' }})</span>
+        </li>
+    </ul>
+</div>
