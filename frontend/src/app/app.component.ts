@@ -1,13 +1,27 @@
 import { Component, ViewChild } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { ExpensesComponent } from "./expenses/expenses.component";
-import { AddExpenseComponent } from "./add-expense/add-expense.component";
+import { RouterModule, RouterOutlet } from '@angular/router';
+import { CommonModule } from '@angular/common'; // Usa CommonModule per i componenti standalone
+import { ExpensesComponent } from './expenses/expenses.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, ExpensesComponent, AddExpenseComponent],
+  standalone: true, // Indica che il componente è standalone
+  imports: [
+    CommonModule,
+    RouterModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatSidenavModule,
+    MatListModule,
+    RouterOutlet
+  ],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css'], // Corretta la proprietà styleUrls
 })
 export class AppComponent {
   title = 'spendy';

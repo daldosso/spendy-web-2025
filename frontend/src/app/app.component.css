@@ -1,0 +1,34 @@
+/* Sfondo del menu laterale */
+.sidenav {
+    background-color: #3f51b5; /* Sfondo blu */
+    color: white; /* Testo bianco di default */
+  }
+  
+  /* Sovrascrivi il colore delle voci del menu */
+  .mdc-list-item__primary-text,
+  .mat-nav-list .mat-list-item {
+    color: white !important; /* Forza il colore del testo a bianco */
+  }
+  
+  /* Stile di hover per le voci */
+  .mdc-list-item__primary-text:hover,
+  .mat-nav-list .mat-list-item:hover {
+    background-color: rgba(255, 255, 255, 0.1); /* Sfondo traslucido al passaggio del mouse */
+    cursor: pointer;
+    color: white !important; /* Forza il colore del testo a bianco */
+  }
+  
+  /* Toolbar */
+.toolbar {
+    display: flex;
+    justify-content: center; /* Centra il contenuto orizzontalmente */
+    align-items: center; /* Centra il contenuto verticalmente */
+  }
+  
+  .toolbar-title {
+    flex-grow: 1; /* Permette al titolo di occupare lo spazio rimanente */
+    text-align: center; /* Assicura che il testo sia centrato */
+    font-weight: bold;
+    font-size: 1.5em;
+  }
+  
