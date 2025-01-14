@@ -14,4 +14,8 @@ export class ExpensesComponent {
     { description: 'Abbonamento Netflix', amount: 15, date: new Date('2025-01-03') },
     { description: 'Spesa', amount: 120, date: new Date('2025-01-05') },
   ];
+
+  addExpense(expense: { description: string; amount: number; date: Date }) {
+    this.expenses.push(expense);
+  }
 }
