@@ -28,7 +28,7 @@ export class AppComponent {
 
   @ViewChild(ExpensesComponent) expensesList!: ExpensesComponent;
 
-  handleNewExpense(expense: { description: string; amount: number; date: Date }) {
+  handleNewExpense(expense: { description: string; amount: number; date: Date; category: string }): void {
     this.expensesList.addExpense(expense);
   }
 }
