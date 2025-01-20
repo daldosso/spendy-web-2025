@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { ExpenseService } from '../services/expense.service';
+
 
 @Component({
   selector: 'app-expenses',
@@ -13,7 +15,7 @@ import { MatSelectModule } from '@angular/material/select';
     FormsModule,
     MatFormFieldModule,
     MatInputModule,
-    MatSelectModule,    
+    MatSelectModule,
   ], // Importa i moduli necessari
   templateUrl: './expenses.component.html',
   styleUrls: ['./expenses.component.css']
@@ -22,13 +24,21 @@ export class ExpensesComponent {
 
   categories: string[] = ['Alimentazione', 'Trasporti', 'Intrattenimento', 'Casa', 'Salute', 'Altro'];
 
-  expenses = [
-    { description: 'Cena al ristorante', amount: 50, date: new Date('2025-01-01'), category: 'Alimentazione' },
-    { description: 'Abbonamento Netflix', amount: 15, date: new Date('2025-01-03'), category: 'Intrattenimento' },
-    { description: 'Spesa', amount: 120, date: new Date('2025-01-05'), category: 'Casa' },
-  ];
-
   editingIndex: number | null = null;
+
+  constructor(private expenseService: ExpenseService) {}
+
+  expenses: any[] = [];
+
+  ngOnInit(): void {
+    this.loadExpenses();
+  }
+
+  loadExpenses(): void {
+    this.expenseService.getExpenses().subscribe((data) => {
+      this.expenses = data;
+    });
+  }
 
   addExpense(expense: { description: string; amount: number; date: Date; category: string }): void {
     this.expenses.push(expense);
