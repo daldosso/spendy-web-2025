@@ -1,5 +1,8 @@
 <div class="expenses-container">
     <h2>Lista delle Spese</h2>
+
+    <app-add-expense (newExpenseEvent)="addExpense($event)"></app-add-expense>
+
     <div class="expense-card" *ngFor="let expense of expenses; let i = index">
         <div *ngIf="editingIndex !== i" class="expense-view">
             <div class="expense-details">

@@ -5,6 +5,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { ExpenseService } from '../services/expense.service';
+import { AddExpenseComponent } from '../add-expense/add-expense.component';
 
 
 @Component({
@@ -16,6 +17,7 @@ import { ExpenseService } from '../services/expense.service';
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
+    AddExpenseComponent,
   ], // Importa i moduli necessari
   templateUrl: './expenses.component.html',
   styleUrls: ['./expenses.component.css']
@@ -41,7 +43,14 @@ export class ExpensesComponent {
   }
 
   addExpense(expense: { description: string; amount: number; date: Date; category: string }): void {
-    this.expenses.push(expense);
+    this.expenseService.createExpense(expense).subscribe({
+      next: (newExpense) => {
+        this.expenses.push(newExpense);
+      },
+      error: (err) => {
+        console.error('Errore durante l\'aggiunta della spesa:', err);
+      },
+    });
   }
 
   editExpense(index: number): void {

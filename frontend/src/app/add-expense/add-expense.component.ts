@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
@@ -6,12 +7,17 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './add-expense.component.html',
   styleUrls: ['./add-expense.component.css'],
   standalone: true,
-  imports: [FormsModule],
+  imports: [
+    FormsModule,
+    CommonModule, 
+  ],
 })
 export class AddExpenseComponent {
-  newExpense = { description: '', amount: 0, date: '' };
+  newExpense = { description: '', amount: 0, date: '', category: '' };
 
-  @Output() newExpenseEvent = new EventEmitter<{ description: string; amount: number; date: Date }>();
+  categories = ['Alimentazione', 'Trasporti', 'Intrattenimento', 'Casa', 'Salute', 'Altro'];
+
+  @Output() newExpenseEvent = new EventEmitter<{ description: string; amount: number; date: Date; category: string }>();
 
   addExpense() {
     console.log('Nuova spesa:', this.newExpense);
@@ -21,6 +27,6 @@ export class AddExpenseComponent {
     };
     this.newExpenseEvent.emit(expense);
     // Resetta il form dopo l'invio
-    this.newExpense = { description: '', amount: 0, date: '' };
+    this.newExpense = { description: '', amount: 0, date: '', category: '' };
   }
 }
