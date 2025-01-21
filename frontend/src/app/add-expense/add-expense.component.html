@@ -1,25 +1,33 @@
 <div class="add-expense-container">
     <h2>Aggiungi una nuova spesa</h2>
-    <form (ngSubmit)="addExpense()">
-        <div>
-            <label for="description">Descrizione:</label>
-            <input id="description" type="text" [(ngModel)]="newExpense.description" name="description" required />
+    <form (ngSubmit)="addExpense()" class="form-container">
+        <mat-form-field appearance="fill" class="form-field">
+            <mat-label>Descrizione</mat-label>
+            <input matInput type="text" [(ngModel)]="newExpense.description" name="description" required />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="form-field">
+            <mat-label>Importo</mat-label>
+            <input matInput type="number" [(ngModel)]="newExpense.amount" name="amount" required />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="form-field">
+            <mat-label>Data</mat-label>
+            <input matInput [matDatepicker]="picker" [(ngModel)]="newExpense.date" name="date" required />
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="form-field">
+            <mat-label>Categoria</mat-label>
+            <mat-select [(ngModel)]="newExpense.category" name="category" required>
+                <mat-option value="" disabled>Seleziona una categoria</mat-option>
+                <mat-option *ngFor="let category of categories" [value]="category">{{ category }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <div class="form-actions">
+            <button mat-raised-button color="primary" type="submit">Aggiungi Spesa</button>
         </div>
-        <div>
-            <label for="amount">Importo:</label>
-            <input id="amount" type="number" [(ngModel)]="newExpense.amount" name="amount" required />
-        </div>
-        <div>
-            <label for="date">Data:</label>
-            <input id="date" type="date" [(ngModel)]="newExpense.date" name="date" required />
-        </div>
-        <div class="form-group">
-            <label for="category">Categoria</label>
-            <select id="category" [(ngModel)]="newExpense.category" name="category" required>
-                <option value="" disabled selected>Seleziona una categoria</option>
-                <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
-            </select>
-        </div>
-        <button type="submit">Aggiungi Spesa</button>
     </form>
 </div>

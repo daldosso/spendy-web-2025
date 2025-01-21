@@ -1,6 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 @Component({
   selector: 'app-add-expense',
@@ -10,6 +15,11 @@ import { FormsModule } from '@angular/forms';
   imports: [
     FormsModule,
     CommonModule, 
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatNativeDateModule,
+    MatDatepickerModule,
   ],
 })
 export class AddExpenseComponent {
