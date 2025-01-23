@@ -1,131 +1,74 @@
 /* Contenitore principale */
 .expenses-container {
   max-width: 800px;
-  margin: 20px auto;
-  padding: 20px;
-  background-color: #f7f7f7;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.expenses-container h2 {
-  text-align: center;
-  color: #333;
-  font-size: 1.8em;
-  margin-bottom: 20px;
-}
-
-/* Card della spesa */
-.expense-card {
+  margin: auto;
   display: flex;
   flex-direction: column;
-  padding: 15px 20px;
-  margin-bottom: 15px;
-  background-color: #fff;
+  gap: 24px;
+  padding: 16px;
+  background-color: #f9f9f9;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.expense-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+/* Intestazione */
+.expenses-container h2 {
+  text-align: center;
+  color: #3f51b5;
+  font-size: 1.8rem;
+  margin-bottom: 16px;
 }
 
-.expense-details h3 {
-  font-size: 1.4em;
-  color: #333;
-  margin: 0 0 5px;
+/* Pulsante di aggiunta */
+.expenses-container button[mat-raised-button] {
+  align-self: flex-end;
+  margin-bottom: 16px;
 }
 
-.expense-details p {
-  margin: 0;
-  color: #666;
-  font-size: 0.9em;
+/* Lista delle spese */
+.expense-card {
+  margin-bottom: 16px;
 }
 
-.expense-actions {
-  display: flex;
-  gap: 10px;
-  margin-top: 10px;
-}
-
-/* Sezione di modifica */
-.expense-edit {
-  padding: 15px 0;
-  border-top: 1px solid #ddd;
-}
-
-.form-group {
-  margin-bottom: 15px;
-}
-
-.form-group label {
-  display: block;
-  font-weight: bold;
-  margin-bottom: 5px;
-  color: #555;
-}
-
-.form-group input {
-  width: 100%;
-  padding: 8px;
+/* Mat-card personalizzato */
+mat-card {
+  padding: 16px;
   border: 1px solid #ddd;
-  border-radius: 4px;
+  border-radius: 8px;
+  background-color: #ffffff;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.form-actions {
+mat-card h3 {
+  color: #333;
+  font-size: 1.2rem;
+  margin: 0;
+  margin-bottom: 8px;
+}
+
+mat-card p {
+  color: #555;
+  margin: 4px 0;
+  font-size: 0.95rem;
+}
+
+/* Azioni nel card */
+mat-card-actions {
   display: flex;
-  gap: 10px;
   justify-content: flex-end;
-  margin-top: 10px;
+  gap: 8px;
+  margin-top: 16px;
 }
 
-/* Pulsanti */
-.btn {
-  padding: 8px 15px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 0.9em;
+mat-card-actions button {
+  font-size: 0.9rem;
 }
 
-.edit-btn {
-  background-color: #007bff;
-  color: #fff;
-  transition: background-color 0.2s;
-}
-
-.edit-btn:hover {
-  background-color: #0056b3;
-}
-
-.delete-btn {
-  background-color: #dc3545;
-  color: #fff;
-  transition: background-color 0.2s;
-}
-
-.delete-btn:hover {
-  background-color: #a71d2a;
-}
-
-.save-btn {
-  background-color: #28a745;
-  color: #fff;
-  transition: background-color 0.2s;
-}
-
-.save-btn:hover {
-  background-color: #218838;
-}
-
-.cancel-btn {
-  background-color: #6c757d;
-  color: #fff;
-  transition: background-color 0.2s;
-}
-
-.cancel-btn:hover {
-  background-color: #5a6268;
+/* Modulo per aggiungere/modificare spese */
+app-upsert-expense {
+  margin-bottom: 24px;
+  padding: 16px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f5f5f5;
 }

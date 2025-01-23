@@ -5,8 +5,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { ExpenseService } from '../services/expense.service';
-import { AddExpenseComponent } from '../add-expense/add-expense.component';
-
+import { UpsertExpenseComponent } from '../upsert-expense/upsert-expense.component';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-expenses',
@@ -17,7 +17,9 @@ import { AddExpenseComponent } from '../add-expense/add-expense.component';
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
-    AddExpenseComponent,
+    UpsertExpenseComponent,
+    MatCardModule,
+
   ], // Importa i moduli necessari
   templateUrl: './expenses.component.html',
   styleUrls: ['./expenses.component.css']
@@ -31,6 +33,10 @@ export class ExpensesComponent {
   constructor(private expenseService: ExpenseService) {}
 
   expenses: any[] = [];
+
+  currentExpense: any = null;
+  showForm = false;
+  isEditMode = false;
 
   ngOnInit(): void {
     this.loadExpenses();
@@ -65,8 +71,43 @@ export class ExpensesComponent {
     this.editingIndex = null; // Annulla l'editing
   }
 
+  showAddExpenseForm(): void {
+    this.currentExpense = { description: '', amount: 0, date: '', category: '' };
+    this.isEditMode = false;
+    this.showForm = true;
+  }
+
+  handleSaveExpense(expense: any): void {
+    if (this.isEditMode) {
+      const index = this.expenses.findIndex(e => e === this.currentExpense);
+      this.expenses[index] = expense;
+      // Aggiorna nel backend
+      this.expenseService.updateExpense(this.currentExpense.id, expense).subscribe({
+        next: () => console.log('Spesa aggiornata con successo.'),
+        error: (err) => console.error('Errore durante l\'aggiornamento della spesa:', err),
+      });
+    } else {
+      this.expenseService.createExpense(expense).subscribe({
+        next: (newExpense) => {
+          this.expenses.push(newExpense);
+        },
+        error: (err) => console.error('Errore durante l\'aggiunta della spesa:', err),
+      });
+    }
+    this.showForm = false;
+  }
+
+  handleCancel(): void {
+    this.showForm = false;
+  }
+
   deleteExpense(index: number): void {
+    const expenseToDelete = this.expenses[index];
     this.expenses.splice(index, 1);
+    this.expenseService.deleteExpense(expenseToDelete.id).subscribe({
+      next: () => console.log('Spesa eliminata con successo.'),
+      error: (err) => console.error('Errore durante l\'eliminazione della spesa:', err),
+    });
   }
   
 }

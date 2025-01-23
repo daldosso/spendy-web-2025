@@ -1,52 +1,28 @@
 <div class="expenses-container">
     <h2>Lista delle Spese</h2>
 
-    <app-add-expense (newExpenseEvent)="addExpense($event)"></app-add-expense>
+    <button mat-raised-button color="primary" (click)="showAddExpenseForm()">
+        Aggiungi Spesa
+    </button>
 
+    <!-- Modulo per aggiungere o modificare una spesa -->
+    <app-upsert-expense *ngIf="showForm" [expense]="currentExpense" [isEditMode]="isEditMode"
+        (save)="handleSaveExpense($event)" (cancel)="handleCancel()">
+    </app-upsert-expense>
+
+    <!-- Lista delle spese -->
     <div class="expense-card" *ngFor="let expense of expenses; let i = index">
-        <div *ngIf="editingIndex !== i" class="expense-view">
-            <div class="expense-details">
+        <mat-card>
+            <mat-card-content>
                 <h3>{{ expense.description }}</h3>
                 <p>Importo: {{ expense.amount | currency:'EUR' }}</p>
                 <p>Data: {{ expense.date | date:'dd/MM/yyyy' }}</p>
-            </div>
-            <div class="expense-actions">
-                <button class="btn edit-btn" (click)="editExpense(i)">Modifica</button>
-                <button class="btn delete-btn" (click)="deleteExpense(i)">Elimina</button>
-            </div>
-        </div>
-
-        <div *ngIf="editingIndex === i" class="expense-edit">
-            <form (ngSubmit)="saveExpense()">
-                <div class="form-group">
-                    <label for="description">Descrizione</label>
-                    <input id="description" [(ngModel)]="expense.description" name="description"
-                        placeholder="Descrizione" required />
-                </div>
-                <div class="form-group">
-                    <label for="category">Categoria</label>
-                    <mat-form-field appearance="fill">
-                        <mat-select [(ngModel)]="expense.category" name="category" required>
-                            <mat-option *ngFor="let category of categories" [value]="category">
-                                {{ category }}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-                <div class="form-group">
-                    <label for="amount">Importo</label>
-                    <input id="amount" type="number" [(ngModel)]="expense.amount" name="amount" placeholder="Importo"
-                        required />
-                </div>
-                <div class="form-group">
-                    <label for="date">Data</label>
-                    <input id="date" type="date" [(ngModel)]="expense.date" name="date" required />
-                </div>
-                <div class="form-actions">
-                    <button type="submit" class="btn save-btn">Salva</button>
-                    <button type="button" class="btn cancel-btn" (click)="cancelEdit()">Annulla</button>
-                </div>
-            </form>
-        </div>
+                <p>Categoria: {{ expense.category }}</p>
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-button color="accent" (click)="editExpense(i)">Modifica</button>
+                <button mat-button color="warn" (click)="deleteExpense(i)">Elimina</button>
+            </mat-card-actions>
+        </mat-card>
     </div>
 </div>

@@ -31,3 +31,61 @@ div.mat-mdc-select-panel .mat-mdc-option {
   background-color: rgb(185, 183, 183) !important;
   /* Assicura che lo sfondo sia bianco */
 }
+
+/* Pulsanti generali */
+button[mat-button],
+button[mat-raised-button] {
+  font-size: 1rem;
+  text-transform: uppercase;
+  font-weight: 600;
+  border-radius: 4px;
+  padding: 8px 16px;
+  transition: all 0.3s ease;
+}
+
+/* Pulsante Modifica */
+button[mat-button][color="accent"] {
+  color: #ffffff;
+  background-color: #ff9800;
+  border: 1px solid #e68900;
+}
+
+button[mat-button][color="accent"]:hover {
+  background-color: #e68900;
+}
+
+/* Pulsante Elimina */
+button[mat-button][color="warn"] {
+  color: #ffffff;
+  background-color: #f44336;
+  border: 1px solid #d32f2f;
+}
+
+button[mat-button][color="warn"]:hover {
+  background-color: #d32f2f;
+}
+
+/* Pulsante Aggiungi */
+button[mat-raised-button][color="primary"] {
+  color: #ffffff;
+  background-color: #3f51b5;
+  border: 1px solid #303f9f;
+  box-shadow: 0px 4px 8px rgba(63, 81, 181, 0.2);
+}
+
+button[mat-raised-button][color="primary"]:hover {
+  background-color: #303f9f;
+  box-shadow: 0px 4px 12px rgba(48, 63, 159, 0.3);
+}
+
+/* Effetti al clic */
+button:active {
+  transform: scale(0.98);
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Stile del testo nei pulsanti */
+button span {
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+}

@@ -1,0 +1,28 @@
+/* Contenitore del modulo */
+.form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    /* Spaziatura uniforme tra i campi */
+    max-width: 600px;
+    /* Limita la larghezza massima del modulo */
+    margin: 0 auto;
+    /* Centra il modulo */
+}
+
+/* Campo modulo */
+.form-field {
+    width: 100%;
+    /* I campi occupano tutta la larghezza disponibile */
+}
+
+/* Pulsanti */
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    /* Spazia i pulsanti */
+    gap: 16px;
+    /* Aggiungi uno spazio tra i pulsanti */
+    margin-top: 16px;
+    /* Distanzia i pulsanti dai campi del modulo */
+}
