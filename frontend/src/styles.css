@@ -89,3 +89,25 @@ button span {
   font-size: 0.9rem;
   letter-spacing: 0.5px;
 }
+
+:root {
+  --mdc-list-list-item-label-text-color: white;
+  /* Forza il colore del testo a bianco */
+}
+
+:root {
+  --mdc-filled-text-field-container-color: white;
+  /* Cambia lo sfondo del campo input a bianco */
+}
+
+:root {
+  --mat-option-text-color: black;
+  /* Cambia il colore del testo delle opzioni a nero */
+}
+
+div.mat-mdc-select-panel .mat-mdc-option {
+  color: black !important;
+  /* Cambia il colore del testo a nero */
+  background-color: rgb(185, 183, 183) !important;
+  /* Assicura che lo sfondo sia bianco */
+}

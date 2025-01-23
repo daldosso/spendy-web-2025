@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { catchError, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -14,8 +15,12 @@ export class ExpenseService {
     return this.http.get(this.apiUrl);
   }
 
-  createExpense(expense: any): Observable<any> {
-    return this.http.post(this.apiUrl, expense);
+  createExpense(expense: any) {
+    return this.http.post(this.apiUrl, expense).pipe(
+      catchError((error) => {
+        return throwError(() => error.error); // Passa l'errore al componente
+      })
+    );
   }
 
   updateExpense(id: string, expense: any): Observable<any> {

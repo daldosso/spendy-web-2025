@@ -30,6 +30,8 @@ export class ExpensesComponent {
 
   editingIndex: number | null = null;
 
+  errorMessage: string | null = null;
+
   constructor(private expenseService: ExpenseService) {}
 
   expenses: any[] = [];
@@ -48,19 +50,11 @@ export class ExpensesComponent {
     });
   }
 
-  addExpense(expense: { description: string; amount: number; date: Date; category: string }): void {
-    this.expenseService.createExpense(expense).subscribe({
-      next: (newExpense) => {
-        this.expenses.push(newExpense);
-      },
-      error: (err) => {
-        console.error('Errore durante l\'aggiunta della spesa:', err);
-      },
-    });
-  }
-
   editExpense(index: number): void {
     this.editingIndex = index;
+    this.isEditMode = true;
+    this.showForm = true;
+    this.currentExpense = this.expenses[index];
   }
   
   saveExpense(): void {
@@ -82,7 +76,7 @@ export class ExpensesComponent {
       const index = this.expenses.findIndex(e => e === this.currentExpense);
       this.expenses[index] = expense;
       // Aggiorna nel backend
-      this.expenseService.updateExpense(this.currentExpense.id, expense).subscribe({
+      this.expenseService.updateExpense(this.currentExpense._id, expense).subscribe({
         next: () => console.log('Spesa aggiornata con successo.'),
         error: (err) => console.error('Errore durante l\'aggiornamento della spesa:', err),
       });
@@ -91,7 +85,10 @@ export class ExpensesComponent {
         next: (newExpense) => {
           this.expenses.push(newExpense);
         },
-        error: (err) => console.error('Errore durante l\'aggiunta della spesa:', err),
+        error: (err) => {
+          console.error('Errore durante l\'aggiunta della spesa:', err);
+          this.errorMessage = err.details;
+        }
       });
     }
     this.showForm = false;
@@ -104,7 +101,7 @@ export class ExpensesComponent {
   deleteExpense(index: number): void {
     const expenseToDelete = this.expenses[index];
     this.expenses.splice(index, 1);
-    this.expenseService.deleteExpense(expenseToDelete.id).subscribe({
+    this.expenseService.deleteExpense(expenseToDelete._id).subscribe({
       next: () => console.log('Spesa eliminata con successo.'),
       error: (err) => console.error('Errore durante l\'eliminazione della spesa:', err),
     });
