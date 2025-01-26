@@ -7,7 +7,7 @@ import { catchError, throwError } from 'rxjs';
   providedIn: 'root',
 })
 export class ExpenseService {
-  private apiUrl = 'http://localhost:3000/api/expenses';
+  private apiUrl = 'http://10.0.2.2:3000/api/expenses';
 
   constructor(private http: HttpClient) {}
 

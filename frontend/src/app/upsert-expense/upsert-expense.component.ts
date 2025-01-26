@@ -31,10 +31,36 @@ export class UpsertExpenseComponent {
   categories = ['Alimentazione', 'Trasporti', 'Intrattenimento', 'Casa', 'Salute', 'Altro'];
 
   onSubmit(): void {
-    this.save.emit(this.expense);
+    if (this.expense.description && this.expense.amount > 0 && this.expense.date && this.expense.category) {
+      this.save.emit(this.expense);
+    } else {
+      //this.errorMessage = 'Compila tutti i campi richiesti prima di salvare.';
+    }
   }
+  
 
   onCancel(): void {
     this.cancel.emit();
+  }
+
+  capturedImage: string | null = null;
+  
+  openCamera(): void {
+    if ((window as any).Android && (window as any).Android.openCamera) {
+      (window as any).Android.openCamera();
+    } else {
+      console.error('Interfaccia Android non disponibile');
+    }
+  }
+
+  getCapturedImage(): void {
+    if ((window as any).Android && (window as any).Android.getCapturedImage) {
+      const base64Image = (window as any).Android.getCapturedImage();
+      if (base64Image) {
+        this.capturedImage = `data:image/png;base64,${base64Image}`;
+      }
+    } else {
+      console.error('Interfaccia Android non disponibile');
+    }
   }
 }

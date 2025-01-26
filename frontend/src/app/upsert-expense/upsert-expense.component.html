@@ -24,6 +24,15 @@
         </mat-select>
     </mat-form-field>
 
+    <button mat-raised-button color="primary" (click)="openCamera()">Scatta Foto</button>
+
+    <button mat-raised-button color="primary" (click)="getCapturedImage()">Visualizza Immagine</button>
+
+    <div *ngIf="capturedImage">
+        <h3>Immagine Catturata:</h3>
+        <img [src]="capturedImage" alt="Immagine catturata" />
+    </div>
+
     <div class="form-actions">
         <button mat-raised-button color="primary" type="submit">
             {{ isEditMode ? 'Salva Modifica' : 'Aggiungi Spesa' }}

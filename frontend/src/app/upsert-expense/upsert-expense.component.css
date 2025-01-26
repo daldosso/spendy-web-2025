@@ -26,3 +26,18 @@
     margin-top: 16px;
     /* Distanzia i pulsanti dai campi del modulo */
 }
+
+.photo-preview {
+    margin-top: 16px;
+    text-align: center;
+}
+
+.photo-preview img {
+    max-width: 100%;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+}
+
+button {
+    margin-top: 16px;
+}
