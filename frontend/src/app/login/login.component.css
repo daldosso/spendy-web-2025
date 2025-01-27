@@ -1,4 +1,4 @@
-.register-container {
+.login-container {
     max-width: 400px;
     margin: 0 auto;
     padding: 16px;
@@ -14,10 +14,5 @@ mat-form-field {
 
 .error-message {
     color: red;
-    font-weight: bold;
-}
-
-.success-message {
-    color: green;
     font-weight: bold;
 }

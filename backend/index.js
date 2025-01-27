@@ -2,12 +2,15 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 const Expense = require('./models/Expense');
 const User = require('./models/User');
 
 const app = express();
 const PORT = 3000;
+
+const SECRET_KEY = 'your_jwt_secret_TEST';
 
 app.use(cors());
 
@@ -87,6 +90,28 @@ app.post('/api/register', async (req, res) => {
     res.status(201).json({ message: 'Registrazione completata con successo' });
   } catch (err) {
     res.status(500).json({ error: 'Errore durante la registrazione', details: err.message });
+  }
+});
+
+app.post('/api/login', async (req, res) => {
+  const { username, password } = req.body;
+
+  try {
+    const user = await User.findOne({ username });
+    if (!user) {
+      return res.status(401).json({ message: 'Credenziali non valide' });
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(401).json({ message: 'Credenziali non valide' });
+    }
+
+    // Genera il token JWT
+    const token = jwt.sign({ id: user._id, username: user.username }, SECRET_KEY, { expiresIn: '1h' });
+    res.json({ token });
+  } catch (err) {
+    res.status(500).json({ message: 'Errore durante il login', details: err.message });
   }
 });
 
