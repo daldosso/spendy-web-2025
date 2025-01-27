@@ -1,8 +1,10 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const bcrypt = require('bcrypt');
 
 const Expense = require('./models/Expense');
+const User = require('./models/User');
 
 const app = express();
 const PORT = 3000;
@@ -64,6 +66,27 @@ app.delete('/api/expenses/:id', async (req, res) => {
     res.json({ message: 'Spesa eliminata con successo' });
   } catch (err) {
     res.status(400).json({ error: 'Errore nella cancellazione della spesa', details: err.message });
+  }
+});
+
+app.post('/api/register', async (req, res) => {
+  const { username, password } = req.body;
+
+  try {
+    // Controlla se l'utente esiste già
+    const existingUser = await User.findOne({ username });
+    if (existingUser) {
+      return res.status(400).json({ error: 'Username già in uso' });
+    }
+
+    // Cripta la password e salva il nuovo utente
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const newUser = new User({ username, password: hashedPassword });
+    await newUser.save();
+
+    res.status(201).json({ message: 'Registrazione completata con successo' });
+  } catch (err) {
+    res.status(500).json({ error: 'Errore durante la registrazione', details: err.message });
   }
 });
 
