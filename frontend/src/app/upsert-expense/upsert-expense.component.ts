@@ -6,6 +6,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-upsert-expense',
@@ -62,5 +63,11 @@ export class UpsertExpenseComponent {
     } else {
       console.error('Interfaccia Android non disponibile');
     }
+  }
+
+  constructor(private router: Router) {}
+
+  gotoMap(): void {
+    this.router.navigate(['/map']);
   }
 }

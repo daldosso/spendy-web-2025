@@ -1,0 +1,13 @@
+<gmp-map [center]="{lat: latitude, lng: longitude}" [zoom]="14" style="width: 100%; height: 400px;"
+    map-id="YOUR_MAP_ID">
+    <gmp-advanced-marker [position]="{lat: latitude, lng: longitude}" title="La tua posizione"></gmp-advanced-marker>
+</gmp-map>
+
+<div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+</div>
+
+<div class="actions">
+    <button mat-raised-button color="primary" (click)="refreshMap()">Aggiorna Mappa</button>
+    <button mat-raised-button color="accent" (click)="goBack()">Torna Indietro</button>
+</div>

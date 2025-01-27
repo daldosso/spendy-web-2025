@@ -28,6 +28,8 @@
 
     <button mat-raised-button color="primary" (click)="getCapturedImage()">Visualizza Immagine</button>
 
+    <button mat-raised-button color="primary" (click)="gotoMap()">Recupera coordinate GPS</button>
+
     <div *ngIf="capturedImage">
         <h3>Immagine Catturata:</h3>
         <img [src]="capturedImage" alt="Immagine catturata" />
