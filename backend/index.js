@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const authMiddleware = require('./authMiddleware');
 
 const Expense = require('./models/Expense');
 const User = require('./models/User');
@@ -27,7 +28,7 @@ app.listen(PORT, () => {
     console.log(`Server avviato su http://localhost:${PORT}`);
 });
 
-app.get('/api/expenses', async (req, res) => {
+app.get('/api/expenses', authMiddleware, async (req, res) => {
     try {
       const expenses = await Expense.find();
       res.json(expenses);
@@ -36,7 +37,7 @@ app.get('/api/expenses', async (req, res) => {
     }
   });
 
-app.post('/api/expenses', async (req, res) => {
+app.post('/api/expenses', authMiddleware, async (req, res) => {
   try {
     const expense = new Expense(req.body);
     await expense.save();
@@ -47,7 +48,7 @@ app.post('/api/expenses', async (req, res) => {
 });
 
 // API per modificare una spesa
-app.put('/api/expenses/:id', async (req, res) => {
+app.put('/api/expenses/:id', authMiddleware, async (req, res) => {
   try {
     const expense = await Expense.findByIdAndUpdate(req.params.id, req.body, { new: true });
     if (!expense) {
@@ -60,7 +61,7 @@ app.put('/api/expenses/:id', async (req, res) => {
 });
 
 // API per cancellare una spesa
-app.delete('/api/expenses/:id', async (req, res) => {
+app.delete('/api/expenses/:id', authMiddleware, async (req, res) => {
   try {
     const expense = await Expense.findByIdAndDelete(req.params.id);
     if (!expense) {

@@ -1,18 +1,28 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError, throwError } from 'rxjs';
+import { EnvironmentService } from '../environment.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ExpenseService {
-  private apiUrl = 'http://10.0.2.2:3000/api/expenses';
+  private apiUrl = '';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private environmentService: EnvironmentService) {
+    this.apiUrl = this.environmentService.getApiUrl() + '/expenses';
+  }
 
+  private getAuthHeaders(): HttpHeaders {
+    const token = localStorage.getItem('token');
+    return new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+  }
+  
   getExpenses(): Observable<any> {
-    return this.http.get(this.apiUrl);
+    return this.http.get(this.apiUrl, { headers: this.getAuthHeaders() });
   }
 
   createExpense(expense: any) {
