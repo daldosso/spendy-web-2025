@@ -1,0 +1,59 @@
+.mat-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.app-title {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.spacer {
+    flex: 1;
+}
+
+/* Overlay semi-trasparente quando il menu è aperto */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    /* Aumentato per coprire tutto */
+    transition: opacity 0.3s ease-in-out;
+}
+
+/* Menu laterale a sinistra con sfondo blu e z-index elevato */
+.side-menu {
+    position: fixed;
+    top: 0;
+    left: -250px;
+    width: 250px;
+    height: 100%;
+    background: #1e3a8a;
+    /* Blu scuro */
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    z-index: 1100;
+    /* Aumentato per stare sopra agli altri elementi */
+    transform: translateX(-100%);
+    /* Nasconde completamente il menu chiuso */
+}
+
+.side-menu.open {
+    transform: translateX(100%);
+    /* Mostra il menu con transizione fluida */
+}
+
+.side-menu button {
+    width: 100%;
+    padding: 10px;
+    text-align: left;
+    color: white;
+}

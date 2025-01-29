@@ -1,0 +1,21 @@
+<mat-toolbar color="primary">
+    <button mat-icon-button (click)="toggleMenu()">
+        <mat-icon>menu</mat-icon>
+    </button>
+
+    <span class="app-title">Spendy</span>
+
+    <span class="spacer"></span>
+
+    <button *ngIf="!isLoggedIn()" mat-button (click)="goToLogin()">Login</button>
+    <button *ngIf="isLoggedIn()" mat-button (click)="logout()">Logout</button>
+</mat-toolbar>
+
+<!-- Overlay per il menu -->
+<div class="overlay" *ngIf="menuOpen" (click)="toggleMenu()"></div>
+
+<!-- Menu laterale -->
+<div class="side-menu" [class.open]="menuOpen">
+    <button mat-button (click)="goToExpenses()">Gestione Spese</button>
+    <button mat-button *ngIf="isLoggedIn()" (click)="logout()">Logout</button>
+</div>

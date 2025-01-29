@@ -6,6 +6,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
+import { NavbarComponent } from './navbar/navbar.component';
 
 
 @Component({
@@ -18,7 +19,8 @@ import { MatListModule } from '@angular/material/list';
     MatIconModule,
     MatSidenavModule,
     MatListModule,
-    RouterOutlet
+    RouterOutlet,
+    NavbarComponent,
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'], // Corretta la proprietà styleUrls

@@ -8,6 +8,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { AuthService } from '../auth.service';
 
 
 @Component({
@@ -30,12 +31,12 @@ export class LoginComponent {
   password = '';
   errorMessage = '';
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   login(): void {
-    this.http.post('http://localhost:3000/api/login', { username: this.username, password: this.password }).subscribe({
+    this.authService.login(this.username, this.password).subscribe({
       next: (response: any) => {
-        localStorage.setItem('token', response.token); // Salva il token JWT
+        localStorage.setItem('token', response.token);
         this.router.navigate(['/']);
       },
       error: () => {
@@ -43,4 +44,5 @@ export class LoginComponent {
       },
     });
   }
+
 }
