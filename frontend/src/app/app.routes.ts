@@ -3,6 +3,7 @@ import { ExpensesComponent } from './expenses/expenses.component';
 import { ExpenseMapComponent } from './expense-map/expense-map.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
+import { ExpenseChartComponent } from './expense-chart/expense-chart.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -11,5 +12,6 @@ export const routes: Routes = [
     { path: 'map', component: ExpenseMapComponent },
     { path: 'register', component: RegisterComponent },
     { path: 'login', component: LoginComponent },
+    { path: 'chart', component: ExpenseChartComponent },
 
 ];

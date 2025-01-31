@@ -19,7 +19,6 @@ import { MatCardModule } from '@angular/material/card';
     MatSelectModule,
     UpsertExpenseComponent,
     MatCardModule,
-
   ], // Importa i moduli necessari
   templateUrl: './expenses.component.html',
   styleUrls: ['./expenses.component.css']
@@ -35,6 +34,7 @@ export class ExpensesComponent {
   constructor(private expenseService: ExpenseService) {}
 
   expenses: any[] = [];
+  expensesChart: any[] = [];
 
   currentExpense: any = null;
   showForm = false;
@@ -47,6 +47,11 @@ export class ExpensesComponent {
   loadExpenses(): void {
     this.expenseService.getExpenses().subscribe((data) => {
       this.expenses = data;
+
+      this.expensesChart = data.map((exp: any) => ({
+        category: exp.category,
+        amount: exp.amount
+      }));
     });
   }
 

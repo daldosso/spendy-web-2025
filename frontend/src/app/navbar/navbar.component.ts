@@ -44,5 +44,10 @@ export class NavbarComponent {
   goToExpenses(): void {
     this.router.navigate(['/expense-upsert']);
     this.toggleMenu(); // Chiude il menu dopo la navigazione
+  }  
+  
+  goToCharts(): void {
+    this.router.navigate(['/chart']);
+    this.toggleMenu();
   }
 }
