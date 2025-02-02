@@ -18,5 +18,6 @@
 <div class="side-menu" [class.open]="menuOpen">
     <button mat-button (click)="goToExpenses()">Gestione Spese</button>
     <button mat-button (click)="goToCharts()">Grafici</button>
+    <button mat-button (click)="goToChat()">Chat</button>
     <button mat-button *ngIf="isLoggedIn()" (click)="logout()">Logout</button>
 </div>

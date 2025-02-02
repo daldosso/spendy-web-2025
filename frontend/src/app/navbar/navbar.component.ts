@@ -50,4 +50,9 @@ export class NavbarComponent {
     this.router.navigate(['/chart']);
     this.toggleMenu();
   }
+
+  goToChat(): void {
+    this.router.navigate(['/chat']);
+    this.toggleMenu();
+  }
 }

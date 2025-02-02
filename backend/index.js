@@ -4,6 +4,7 @@ const cors = require('cors');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const authMiddleware = require('./authMiddleware');
+const OpenAI = require('openai');
 
 const Expense = require('./models/Expense');
 const User = require('./models/User');
@@ -116,3 +117,32 @@ app.post('/api/login', async (req, res) => {
   }
 });
 
+
+require('dotenv').config();
+
+const openaiApiKey = process.env.OPENAI_API_KEY; // Recupera la chiave API
+
+const openai = new OpenAI({
+  apiKey: openaiApiKey,
+});
+
+app.post('/api/chat', async (req, res) => {
+  try {
+      const { message } = req.body;
+
+      if (!message) {
+          return res.status(400).json({ error: 'Messaggio obbligatorio' });
+      }
+
+      const response = await openai.chat.completions.create({
+          model: "gpt-4",
+          messages: [{ role: "user", content: message }],
+          max_tokens: 150,
+      });
+
+      res.json({ reply: response.choices[0].message.content });
+  } catch (error) {
+      console.error("Errore API ChatGPT:", error);
+      res.status(500).json({ error: "Errore nella comunicazione con ChatGPT" });
+  }
+});

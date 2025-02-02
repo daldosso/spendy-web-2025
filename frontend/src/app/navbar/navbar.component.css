@@ -39,7 +39,6 @@
     transition: transform 0.3s ease-in-out;
     display: flex;
     flex-direction: column;
-    padding: 10px;
     z-index: 1100;
     /* Aumentato per stare sopra agli altri elementi */
     transform: translateX(-100%);
