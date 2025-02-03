@@ -10,15 +10,19 @@ const Expense = require('./models/Expense');
 const User = require('./models/User');
 
 const app = express();
-const PORT = 3000;
 
 const SECRET_KEY = 'your_jwt_secret_TEST';
+
+require('dotenv').config();
+
+const PORT = 3000;
+const openaiApiKey = process.env.OPENAI_API_KEY;
 
 app.use(cors());
 
 app.use(express.json());
 
-mongoose.connect('mongodb://127.0.0.1:27017/spendy', {
+mongoose.connect(process.env.DATABASE_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
@@ -26,7 +30,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/spendy', {
     .catch(err => console.error('Errore di connessione a MongoDB:', err));
 
 app.listen(PORT, () => {
-    console.log(`Server avviato su http://localhost:${PORT}`);
+    console.log(`Server avviato su PORT: ${PORT}`);
 });
 
 app.get('/api/expenses', authMiddleware, async (req, res) => {
@@ -116,11 +120,6 @@ app.post('/api/login', async (req, res) => {
     res.status(500).json({ message: 'Errore durante il login', details: err.message });
   }
 });
-
-
-require('dotenv').config();
-
-const openaiApiKey = process.env.OPENAI_API_KEY; // Recupera la chiave API
 
 const openai = new OpenAI({
   apiKey: openaiApiKey,
