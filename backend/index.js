@@ -11,8 +11,6 @@ const User = require('./models/User');
 
 const app = express();
 
-const SECRET_KEY = 'your_jwt_secret_TEST';
-
 require('dotenv').config();
 
 const PORT = 3000;
@@ -115,7 +113,7 @@ app.post('/api/login', async (req, res) => {
       return res.status(401).json({ message: 'Credenziali non valide' });
     }
 
-    const token = jwt.sign({ id: user._id, username: user.username }, SECRET_KEY, { expiresIn: '1h' });
+    const token = jwt.sign({ id: user._id, username: user.username }, process.env.SECRET_KEY, { expiresIn: '1h' });
     res.json({ token });
   } catch (err) {
     res.status(500).json({ message: 'Errore durante il login', details: err.message });
