@@ -25,6 +25,8 @@ app.use(express.json());
 mongoose.connect(process.env.DATABASE_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    serverSelectionTimeoutMS: 30000,
+    socketTimeoutMS: 45000,
   })
     .then(() => console.log('Connesso a MongoDB'))
     .catch(err => console.error('Errore di connessione a MongoDB:', err));
@@ -113,7 +115,6 @@ app.post('/api/login', async (req, res) => {
       return res.status(401).json({ message: 'Credenziali non valide' });
     }
 
-    // Genera il token JWT
     const token = jwt.sign({ id: user._id, username: user.username }, SECRET_KEY, { expiresIn: '1h' });
     res.json({ token });
   } catch (err) {
