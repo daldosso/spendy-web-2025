@@ -52,7 +52,6 @@ app.post('/api/expenses', authMiddleware, async (req, res) => {
   }
 });
 
-// API per modificare una spesa
 app.put('/api/expenses/:id', authMiddleware, async (req, res) => {
   try {
     const expense = await Expense.findByIdAndUpdate(req.params.id, req.body, { new: true });
@@ -65,7 +64,6 @@ app.put('/api/expenses/:id', authMiddleware, async (req, res) => {
   }
 });
 
-// API per cancellare una spesa
 app.delete('/api/expenses/:id', authMiddleware, async (req, res) => {
   try {
     const expense = await Expense.findByIdAndDelete(req.params.id);
@@ -82,13 +80,11 @@ app.post('/api/register', async (req, res) => {
   const { username, password } = req.body;
 
   try {
-    // Controlla se l'utente esiste già
     const existingUser = await User.findOne({ username });
     if (existingUser) {
       return res.status(400).json({ error: 'Username già in uso' });
     }
 
-    // Cripta la password e salva il nuovo utente
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = new User({ username, password: hashedPassword });
     await newUser.save();
