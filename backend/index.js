@@ -36,6 +36,7 @@ app.listen(PORT, () => {
 app.get('/api/expenses', authMiddleware, async (req, res) => {
     try {
       const expenses = await Expense.find();
+      console.log('expenses', expenses);
       res.json(expenses);
     } catch (err) {
       res.status(500).json({ error: 'Errore nel recuperare le spese' });
